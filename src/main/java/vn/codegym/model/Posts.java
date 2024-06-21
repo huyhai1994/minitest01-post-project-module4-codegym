@@ -16,10 +16,11 @@ public class Posts {
     private String shortDescription;
 
     private String image;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    /*TODO: Adding later after finished the posts
+     *  and getter setter also*/
+    /* @ManyToOne
+       @JoinColumn(name = "category_id")*/
+    /* private Category category;*/
 
     public Posts() {
     }
@@ -64,11 +65,5 @@ public class Posts {
         this.image = image;
     }
 
-    public Category getCategory() {
-        return category;
-    }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 }

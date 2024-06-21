@@ -19,7 +19,7 @@ public class PostsRepository implements IPostsRepository {
 
     @Override
     public List<Posts> findAll() {
-        TypedQuery<Posts> query = entityManager.createQuery("select p from Posts p left join Category c where p.category.id = c.id", Posts.class);
+        TypedQuery<Posts> query = entityManager.createQuery("SELECT p from Posts p", Posts.class);
         return query.getResultList();
     }
 
