@@ -26,11 +26,11 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public Category findById(Long id) {
-        return iCategoryRepository.findById(id);
+        return iCategoryRepository.findById(id).get();
     }
 
     @Override
     public void remove(Long id) {
-        iCategoryRepository.remove(id);
+        iCategoryRepository.deleteById(id);
     }
 }
