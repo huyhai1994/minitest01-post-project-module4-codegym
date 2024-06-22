@@ -3,7 +3,7 @@ package vn.codegym.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import vn.codegym.model.Category;
+import vn.codegym.model.category.Category;
 import vn.codegym.repository.ICategoryRepository;
 import vn.codegym.service.ICategoryService;
 

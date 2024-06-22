@@ -14,9 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 import vn.codegym.model.posts.Posts;
 import vn.codegym.model.posts.PostsDTO;
 import vn.codegym.service.IPostsService;
+import vn.codegym.uri.PostsRequestUri;
+import vn.codegym.uri.PostsViewUri;
 
 import javax.validation.Valid;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 
@@ -24,44 +27,49 @@ import java.util.List;
 @Controller
 public class PostsController {
 
+    public static final String IMAGE_FILE_INVALID_MESSAGE = "can them anh vao";
     @Autowired
     private IPostsService iPostsService;
 
     @Value("${file-upload}")
     private String fileUpload;
 
-    @GetMapping({"", "/"})
+    @GetMapping({PostsRequestUri.BLANK, PostsRequestUri.SLASH})
     public ModelAndView index(ModelAndView modelAndView) {
         List<Posts> posts = iPostsService.findAll(Sort.by(Sort.Direction.DESC, "id"));
         modelAndView.addObject("posts", posts);
-        modelAndView.setViewName("/posts/index");
+        modelAndView.setViewName(PostsViewUri.POSTS_INDEX);
         return modelAndView;
     }
 
-    @GetMapping("/create")
+    @GetMapping(PostsRequestUri.CREATE)
     public ModelAndView showCreateForm(ModelAndView modelAndView) {
         PostsDTO postsDTO = new PostsDTO();
         modelAndView.addObject("postsDTO", postsDTO);
-        modelAndView.setViewName("/posts/create");
+        modelAndView.setViewName(PostsViewUri.POSTS_CREATE);
         return modelAndView;
     }
 
-    @PostMapping("/create")
+    @PostMapping(PostsRequestUri.CREATE)
     public String createPost(@Valid @ModelAttribute PostsDTO postsDTO, BindingResult bindingResult) {
         /*TODO: @Valid, BindingResult -> check validation of fields*/
         checkUploadImageInvalid(postsDTO, bindingResult);
-        if (isBindingError(bindingResult)) return "/posts/create";
+        if (isBindingError(bindingResult)) return PostsViewUri.POSTS_CREATE;
         String fileName = getFileName(postsDTO);
         try {
-            FileCopyUtils.copy(postsDTO.getImageFile().getBytes(), new File(fileUpload + fileName));
+            saveAnCopyOfFileToStorage(postsDTO, fileName);
             savePost(postsDTO, fileName);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/posts";
+        return PostsViewUri.REDIRECT_TO_POSTS;
     }
 
-    @GetMapping("/{id}/edit")
+    private void saveAnCopyOfFileToStorage(PostsDTO postsDTO, String fileName) throws IOException {
+        FileCopyUtils.copy(postsDTO.getImageFile().getBytes(), new File(fileUpload + fileName));
+    }
+
+    @GetMapping(PostsRequestUri.EDIT)
     public String showEditPage(Model model, @PathVariable Long id) {
         Posts posts = iPostsService.findById(id);
         model.addAttribute("posts", posts);
@@ -70,26 +78,32 @@ public class PostsController {
         postsDTO.setContent(posts.getContent());
         postsDTO.setShortDescription(posts.getShortDescription());
         model.addAttribute("postsDTO", postsDTO);
-
-        return "/posts/edit";
+        return PostsViewUri.POSTS_EDIT;
     }
 
-    @PostMapping("/{id}/edit")
+    @PostMapping(PostsRequestUri.EDIT)
     public String editPost(@Valid @ModelAttribute PostsDTO postsDTO, BindingResult bindingResult, @PathVariable Long id) {
+        /*TODO:
+         *   1. Phai kiem tra xem hinh anh da ton tai trong CSDL chua?
+         *   2. edit hinh anh thi phai xoa anh cu
+         *   3. luu anh moi vao storage/images*/
+
         checkUploadImageInvalid(postsDTO, bindingResult);
-        if (isBindingError(bindingResult)) return "/posts/edit";
+        if (isBindingError(bindingResult)) return PostsViewUri.POSTS_EDIT;
         Posts posts = iPostsService.findById(id);
         posts.setTitle(postsDTO.getTitle());
         posts.setContent(postsDTO.getContent());
         posts.setShortDescription(postsDTO.getShortDescription());
         iPostsService.save(posts);
-        return "redirect:/posts";
+        return PostsViewUri.REDIRECT_TO_POSTS;
     }
 
-    @GetMapping("/{id}/delete")
+    @GetMapping(PostsRequestUri.DELETE)
     public String showDeletePage(Model model, @PathVariable Long id) {
         iPostsService.remove(id);
-        return "redirect:/posts";
+        /*TODO: remove xong trong CSDL -
+           > delete ca anh co trong storage/images*/
+        return PostsViewUri.REDIRECT_TO_POSTS;
     }
 
     private static String getFileName(PostsDTO postsDTO) {
@@ -104,7 +118,7 @@ public class PostsController {
 
     private static void checkUploadImageInvalid(PostsDTO postsDTO, BindingResult bindingResult) {
         if (postsDTO.getImageFile().isEmpty())
-            bindingResult.addError(new FieldError("postsDTO", "imageFile", "can them anh vao"));
+            bindingResult.addError(new FieldError("postsDTO", "imageFile", IMAGE_FILE_INVALID_MESSAGE));
     }
 
     public void savePost(PostsDTO postsDTO, String fileName) {

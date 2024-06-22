@@ -1,5 +1,7 @@
 package vn.codegym.model.posts;
 
+import vn.codegym.model.category.Category;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,11 +20,10 @@ public class Posts {
     private String shortDescription;
 
     private String imageFileName;
-    /*TODO: Adding later after finished the posts
-     *  and getter setter also*/
-    /* @ManyToOne
-       @JoinColumn(name = "category_id")*/
-    /* private Category category;*/
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     public Posts() {
     }
