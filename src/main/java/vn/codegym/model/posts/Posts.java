@@ -1,4 +1,4 @@
-package vn.codegym.model;
+package vn.codegym.model.posts;
 
 import javax.persistence.*;
 

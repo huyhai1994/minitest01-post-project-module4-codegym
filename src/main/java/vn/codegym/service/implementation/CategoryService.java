@@ -1,6 +1,7 @@
 package vn.codegym.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import vn.codegym.model.Category;
 import vn.codegym.repository.ICategoryRepository;
@@ -15,7 +16,7 @@ public class CategoryService implements ICategoryService {
     private ICategoryRepository iCategoryRepository;
 
     @Override
-    public List<Category> findAll() {
+    public List<Category> findAll(Sort id) {
         return iCategoryRepository.findAll();
     }
 

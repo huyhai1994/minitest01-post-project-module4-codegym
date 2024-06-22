@@ -45,41 +45,28 @@
         </div>
     </div>
 </nav>
-<div class="container my-5 py-3">
+<div class="container">
     <div class="row">
-        <h1 class="text-center my-4">Chao mung toi Blog cua chung toi</h1>
+        <div class="col-md-8 mx-auto rounded border p-4 m-4">
+            <h2 class="text-center mb-5">Bai viet moi</h2>
+            <form action="/posts/save" method="post" enctype="multipart/form-data"
+                  th:object="${postsDTO}">
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Tieu De</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" th:field="${postsDTO.title}">
+                        <p th:if="${#fields.hasErrors('title')}" th:errorclass="text-danger"
+                           th:errors="${postsDTO.title}"></p>
+                        <!--TODO: if we have error related
+                                to title -> display error-->
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-    <a class="btn btn-primary" href="/posts/create">Them bai moi</a>
-    <!--TODO: Create table-->
-    <table class="table table-responsive table-bordered table-hover">
-        <thead>
-        <tr class="table-success table-active text-uppercase text-white">
-            <th>ID</th>
-            <th>Tieu De</th>
-            <th>Noi dung</th>
-            <th>Mo ta</th>
-            <th>Hinh Anh</th>
-            <th>Hanh Dong</th>
-        </tr>
-        <tbody>
-        <tr th:each="post : ${posts}">
-            <td th:text="${post.id}"></td>
-            <td th:text="${post.title}"></td>
-            <td th:text="${post.content}"></td>
-            <td th:text="${post.shortDescription}"></td>
-            <td><img th:src="@{'/images/'+${post.imageFileName}}" width="100"></td>
-            <td>
-                <a class="btn btn-primary btn-sm" href="@{/posts/edit(id=${post.id})}"><i
-                        class="fa-solid fa-pen-to-square"></i></a>
-                <a class="btn btn-danger btn-sm" href="@{/posts/delete(id=${post.id})}"
-                   onclick="return confirm('Ban co chac chan muon xoa?')"><i
-                        class="fa-solid fa-trash"></i></a>
-            </td>
-        </tbody>
-
-        </thead>
-        </thead></table>
 </div>
+<a class="btn btn-primary" href="/posts/">Tro ve trang chinh</a>
+
 <script crossorigin="anonymous"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
         src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

@@ -49,36 +49,8 @@
     <div class="row">
         <h1 class="text-center my-4">Chao mung toi Blog cua chung toi</h1>
     </div>
-    <a class="btn btn-primary" href="/posts/create">Them bai moi</a>
-    <!--TODO: Create table-->
-    <table class="table table-responsive table-bordered table-hover">
-        <thead>
-        <tr class="table-success table-active text-uppercase text-white">
-            <th>ID</th>
-            <th>Tieu De</th>
-            <th>Noi dung</th>
-            <th>Mo ta</th>
-            <th>Hinh Anh</th>
-            <th>Hanh Dong</th>
-        </tr>
-        <tbody>
-        <tr th:each="post : ${posts}">
-            <td th:text="${post.id}"></td>
-            <td th:text="${post.title}"></td>
-            <td th:text="${post.content}"></td>
-            <td th:text="${post.shortDescription}"></td>
-            <td><img th:src="@{'/images/'+${post.imageFileName}}" width="100"></td>
-            <td>
-                <a class="btn btn-primary btn-sm" href="@{/posts/edit(id=${post.id})}"><i
-                        class="fa-solid fa-pen-to-square"></i></a>
-                <a class="btn btn-danger btn-sm" href="@{/posts/delete(id=${post.id})}"
-                   onclick="return confirm('Ban co chac chan muon xoa?')"><i
-                        class="fa-solid fa-trash"></i></a>
-            </td>
-        </tbody>
+    <a class="btn btn-primary" href="/posts/">Tro ve trang chinh</a>
 
-        </thead>
-        </thead></table>
 </div>
 <script crossorigin="anonymous"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
