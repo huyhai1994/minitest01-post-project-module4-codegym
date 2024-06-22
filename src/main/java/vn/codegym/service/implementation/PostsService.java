@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import vn.codegym.model.posts.Posts;
+import vn.codegym.model.posts.PostsDTO;
 import vn.codegym.repository.IPostsRepository;
 import vn.codegym.service.IPostsService;
 
@@ -34,5 +35,19 @@ public class PostsService implements IPostsService {
     public void remove(Long id) {
         iPostsRepository.deleteById(id);
         ;
+    }
+
+    public void savePost(PostsDTO postsDTO, String fileName) {
+        Posts posts = getPosts(postsDTO, fileName);
+        save(posts);
+    }
+
+    public static Posts getPosts(PostsDTO postsDTO, String fileName) {
+        Posts posts = new Posts();
+        posts.setContent(postsDTO.getContent());
+        posts.setTitle(postsDTO.getTitle());
+        posts.setShortDescription(postsDTO.getShortDescription());
+        posts.setImageFileName(fileName);
+        return posts;
     }
 }
