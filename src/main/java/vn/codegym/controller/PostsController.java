@@ -16,16 +16,13 @@ public class PostsController {
     @Autowired
     private IPostsService iPostsService;
 
-    @RequestMapping("/index")
+    @RequestMapping
     public ModelAndView index(ModelAndView modelAndView) {
-
         modelAndView = new ModelAndView();
         List<Posts> posts = iPostsService.findAll();
-        /*TODO:
-         *   Sua lai cau truy van trong tang repositoty [21/06/2024]
-         * */
+        System.out.println("index");
         modelAndView.addObject("posts", posts);
-        modelAndView.setViewName("posts/index");
+        modelAndView.setViewName("/posts/index");
         return modelAndView;
     }
 

@@ -3,7 +3,7 @@ package vn.codegym.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "post")
+@Table(name = "posts")
 public class Posts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,11 +11,13 @@ public class Posts {
 
     private String title;
 
+    @Column(columnDefinition = "TEXT")
     private String content;
 
+    @Column(columnDefinition = "TEXT")
     private String shortDescription;
 
-    private String image;
+    private String imageFileName;
     /*TODO: Adding later after finished the posts
      *  and getter setter also*/
     /* @ManyToOne
@@ -57,12 +59,12 @@ public class Posts {
         this.shortDescription = shortDescription;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageFileName() {
+        return imageFileName;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageFileName(String imageFileName) {
+        this.imageFileName = imageFileName;
     }
 
 
