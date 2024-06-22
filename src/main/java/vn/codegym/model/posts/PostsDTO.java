@@ -8,9 +8,10 @@ import javax.validation.constraints.Size;
 public class PostsDTO {
     @NotEmpty(message = "Khong duoc de trong ten bai viet")
     private String title;
+
     @NotEmpty(message = "Khong duoc de trong noi dung")
     private String content;
-    @NotEmpty(message = "Khong duoc de trong mo ta ngan")
+
     @Size(min = 10, message = "Mo ta nen it nhat 10 ki tu")
     @Size(max = 2000, message = "Mo ta khong duoc qua 2000 ki tu")
     private String shortDescription;
@@ -33,7 +34,7 @@ public class PostsDTO {
         this.content = content;
     }
 
-    public @NotEmpty(message = "Khong duoc de trong mo ta ngan") @Size(min = 10, message = "Mo ta nen it nhat 10 ki tu") @Size(max = 2000, message = "Mo ta khong duoc qua 2000 ki tu") String getShortDescription() {
+    public @Size(min = 10, message = "Mo ta nen it nhat 10 ki tu") @Size(max = 2000, message = "Mo ta khong duoc qua 2000 ki tu") String getShortDescription() {
         return shortDescription;
     }
 
