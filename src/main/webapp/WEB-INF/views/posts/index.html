@@ -23,7 +23,7 @@
             <td th:text="${post.title}"></td>
             <td th:text="${post.content}"></td>
             <td th:text="${post.shortDescription}"></td>
-            <td th:src="@{'/images/'+${post.imageFileName}}" width="100"></td>
+            <td><img th:src="@{'/images/'+${post.imageFileName}}" width="100"></td>
             <td>
                 <a href="@{/posts/edit(id=${post.id})}" class="btn btn-primary btn-sm">Sua</a>
                 <a href="@{/posts/delete(id=${post.id})}" class="btn btn-danger btn-sm">Xoa</a>
