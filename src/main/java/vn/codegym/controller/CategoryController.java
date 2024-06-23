@@ -1,7 +1,6 @@
 package vn.codegym.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +34,7 @@ public class CategoryController {
     }
 
     @PostMapping(CategoryRequestUri.CREATE)
-    public String create(@ModelAttribute("category") Category category,  RedirectAttributes redirectAttributes) {
+    public String create(@ModelAttribute("category") Category category, RedirectAttributes redirectAttributes) {
         categoryService.save(category);
         redirectAttributes.addFlashAttribute("message", "Danh Muc Moi Da Tao Thanh Cong!!!");
         return CategoryViewUri.REDIRECT_TO_CATEGORY;
@@ -43,16 +42,26 @@ public class CategoryController {
 
     @GetMapping("/{id}/update")
     public ModelAndView updateForm(@PathVariable Long id) {
-        Optional<Category> category= categoryService.findById(id);
-        if (category.isPresent()) {
-            ModelAndView modelAndView = new ModelAndView(CategoryViewUri.CATEGORY_UPDATE);
-            modelAndView.addObject("category",category.get());
-            return modelAndView;
-        } else {
-            return new ModelAndView("/error_404");
-        }
+        Optional<Category> category = categoryService.findById(id);
+        ModelAndView modelAndView = new ModelAndView(CategoryViewUri.CATEGORY_UPDATE);
+        modelAndView.addObject("category", category.get());
+        return modelAndView;
     }
 
+    @PostMapping(CategoryRequestUri.UPDATE)
+    public String update(@ModelAttribute("customer") Category category, RedirectAttributes redirect) {
+        categoryService.save(category);
+        redirect.addFlashAttribute("message", "Update customer successfully");
+        return CategoryViewUri.REDIRECT_TO_CATEGORY;
+    }
+
+    @GetMapping(CategoryRequestUri.DELETE)
+    public String delete(@PathVariable Long id,
+                         RedirectAttributes redirect) {
+        categoryService.remove(id);
+        redirect.addFlashAttribute("message", "Delete customer successfully");
+        return CategoryViewUri.REDIRECT_TO_CATEGORY;
+    }
 
 
 }
