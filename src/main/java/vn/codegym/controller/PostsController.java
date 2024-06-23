@@ -33,14 +33,13 @@ public class PostsController {
     private ICategoryService iCategoryService;
 
     @ModelAttribute("categories")
-    public Iterable<Category> listCatagory() {
+    public Iterable<Category> listCategory() {
         return iCategoryService.findAll();
     }
 
 
     @GetMapping({PostsRequestUri.BLANK, PostsRequestUri.SLASH})
     public ModelAndView showPosts(ModelAndView modelAndView, @PageableDefault(value = PAGE_NUMBER_TO_PRESENT) Pageable pageable) {
-        /*Iterable<Posts> posts = iPostsService.findAll();*/
         Page<Posts> posts = iPostsService.findAll(pageable);
         modelAndView.addObject("posts", posts);
         modelAndView.setViewName(PostsViewUri.POSTS_INDEX);
@@ -56,7 +55,7 @@ public class PostsController {
     }
 
     @PostMapping(PostsRequestUri.CREATE)
-    public String createPost(@Valid @ModelAttribute PostsDTO postsDTO, BindingResult bindingResult) {
+    public String createPost(@Valid @ModelAttribute("postsDTO") PostsDTO postsDTO, BindingResult bindingResult) {
         iPostsService.checkUploadImageInvalid(postsDTO, bindingResult);
         if (isBindingError(bindingResult)) return PostsViewUri.POSTS_CREATE;
         String fileName = iPostsService.getFileName(postsDTO);
@@ -84,6 +83,8 @@ public class PostsController {
         postsDTO.setTitle(posts.getTitle());
         postsDTO.setContent(posts.getContent());
         postsDTO.setShortDescription(posts.getShortDescription());
+        postsDTO.setCategory(posts.getCategory());
+
         return postsDTO;
     }
 

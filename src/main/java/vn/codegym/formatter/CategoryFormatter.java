@@ -9,7 +9,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 public class CategoryFormatter implements Formatter<Category> {
-    private ICategoryService categoryService;
+    private final ICategoryService categoryService;
 
 
     @Autowired
@@ -24,7 +24,7 @@ public class CategoryFormatter implements Formatter<Category> {
     }
 
     @Override
-    public String print(Category category, Locale locale) {
-        return "[" + category.getId() + ", " + category.getName() + "]";
+    public String print(Category object, Locale locale) {
+        return "[" +object.getId() + ", " + object.getName() + "]";
     }
 }

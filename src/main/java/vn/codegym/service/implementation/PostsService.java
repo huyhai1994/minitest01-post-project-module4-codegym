@@ -79,6 +79,7 @@ public class PostsService implements IPostsService {
         posts.setTitle(postsDTO.getTitle());
         posts.setShortDescription(postsDTO.getShortDescription());
         posts.setImageFileName(fileName);
+        posts.setCategory(postsDTO.getCategory());
         return posts;
     }
 
