@@ -1,6 +1,8 @@
 package vn.codegym.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,7 +15,6 @@ import vn.codegym.uri.PostsRequestUri;
 import vn.codegym.uri.PostsViewUri;
 
 import javax.validation.Valid;
-import java.util.List;
 
 
 @RequestMapping(PostsRequestUri.POSTS)
@@ -21,12 +22,13 @@ import java.util.List;
 public class PostsController {
 
     public static final String IMAGE_FILE_INVALID_MESSAGE = "can them anh vao";
+    public static final int PAGE_NUMBER_TO_PRESENT = 5;
     @Autowired
     private IPostsService iPostsService;
 
     @GetMapping({PostsRequestUri.BLANK, PostsRequestUri.SLASH})
-    public ModelAndView index(ModelAndView modelAndView) {
-        Iterable<Posts> posts = iPostsService.findAll();
+    public ModelAndView showPosts(ModelAndView modelAndView, @PageableDefault(value = PAGE_NUMBER_TO_PRESENT) Pageable pageable) {
+        Iterable<Posts> posts = iPostsService.findAll(pageable);
         modelAndView.addObject("posts", posts);
         modelAndView.setViewName(PostsViewUri.POSTS_INDEX);
         return modelAndView;
@@ -57,7 +59,7 @@ public class PostsController {
 
     @GetMapping("/{id}/edit")
     public String showEditPage(Model model, @PathVariable Long id) {
-        Posts posts = iPostsService.findById(id);
+        Posts posts = iPostsService.findById(id).get();
         model.addAttribute("posts", posts);
         PostsDTO postsDTO = getPostsDTO(posts);
         model.addAttribute("postsDTO", postsDTO);
@@ -81,7 +83,7 @@ public class PostsController {
 
         iPostsService.checkUploadImageInvalid(postsDTO, bindingResult);
         if (isBindingError(bindingResult)) return PostsViewUri.POSTS_EDIT;
-        Posts posts = iPostsService.findById(id);
+        Posts posts = iPostsService.findById(id).get();
         posts.setTitle(postsDTO.getTitle());
         posts.setContent(postsDTO.getContent());
         posts.setShortDescription(postsDTO.getShortDescription());

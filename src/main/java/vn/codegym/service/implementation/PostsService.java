@@ -2,6 +2,7 @@ package vn.codegym.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import vn.codegym.service.IPostsService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 import static vn.codegym.controller.PostsController.IMAGE_FILE_INVALID_MESSAGE;
 
@@ -26,7 +28,7 @@ public class PostsService implements IPostsService {
     private IPostsRepository iPostsRepository;
 
     @Override
-    public Iterable<Posts> findAll() {
+    public Iterable<Posts> findAll(Pageable pageable) {
         return iPostsRepository.findAll();
     }
 
@@ -36,8 +38,8 @@ public class PostsService implements IPostsService {
     }
 
     @Override
-    public Posts findById(Long id) {
-        return iPostsRepository.findById(id).get();
+    public Optional<Posts> findById(Long id) {
+        return iPostsRepository.findById(id);
     }
 
     @Override

@@ -1,12 +1,14 @@
 package vn.codegym.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import vn.codegym.model.category.Category;
 import vn.codegym.repository.ICategoryRepository;
 import vn.codegym.service.ICategoryService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService implements ICategoryService {
@@ -15,7 +17,7 @@ public class CategoryService implements ICategoryService {
     private ICategoryRepository iCategoryRepository;
 
     @Override
-    public List<Category> findAll() {
+    public List<Category> findAll(Pageable pageable) {
         return iCategoryRepository.findAll();
     }
 
@@ -25,8 +27,8 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public Category findById(Long id) {
-        return iCategoryRepository.findById(id).get();
+    public Optional<Category>findById(Long id) {
+        return iCategoryRepository.findById(id);
     }
 
     @Override

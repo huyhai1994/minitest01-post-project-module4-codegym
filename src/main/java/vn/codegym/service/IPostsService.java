@@ -20,5 +20,4 @@ public interface IPostsService extends IGenerateService<Posts> {
     void checkUploadImageInvalid(PostsDTO postsDTO, BindingResult bindingResult);
 
 
-
 }
