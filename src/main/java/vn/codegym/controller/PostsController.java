@@ -2,7 +2,6 @@ package vn.codegym.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -36,7 +35,7 @@ public class PostsController {
 
     @GetMapping({PostsRequestUri.BLANK, PostsRequestUri.SLASH})
     public ModelAndView index(ModelAndView modelAndView) {
-        List<Posts> posts = iPostsService.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        List<Posts> posts = iPostsService.findAll();
         modelAndView.addObject("posts", posts);
         modelAndView.setViewName(PostsViewUri.POSTS_INDEX);
         return modelAndView;

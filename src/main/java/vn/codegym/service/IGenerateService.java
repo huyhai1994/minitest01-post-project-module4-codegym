@@ -1,11 +1,9 @@
 package vn.codegym.service;
 
-import org.springframework.data.domain.Sort;
-
 import java.util.List;
 
 public interface IGenerateService<T> {
-    List<T> findAll(Sort id);
+    List<T> findAll();
 
     void save(T t);
 

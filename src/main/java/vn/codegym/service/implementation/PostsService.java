@@ -1,7 +1,6 @@
 package vn.codegym.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import vn.codegym.model.posts.Posts;
 import vn.codegym.model.posts.PostsDTO;
@@ -17,7 +16,7 @@ public class PostsService implements IPostsService {
     private IPostsRepository iPostsRepository;
 
     @Override
-    public List<Posts> findAll(Sort id) {
+    public List<Posts> findAll() {
         return iPostsRepository.findAll();
     }
 
