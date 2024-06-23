@@ -22,7 +22,7 @@ public class CategoryController {
 
     @GetMapping
     public String showCategories(Model model, Pageable pageable) {
-        model.addAttribute("categories", categoryService.findAll(pageable));
+        model.addAttribute("categories", categoryService.findAll());
         return CategoryViewUri.CATEGORY_INDEX;
     }
 

@@ -1,6 +1,7 @@
 package vn.codegym.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -8,8 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import vn.codegym.model.category.Category;
 import vn.codegym.model.posts.Posts;
 import vn.codegym.model.posts.PostsDTO;
+import vn.codegym.service.ICategoryService;
 import vn.codegym.service.IPostsService;
 import vn.codegym.uri.PostsRequestUri;
 import vn.codegym.uri.PostsViewUri;
@@ -25,10 +28,19 @@ public class PostsController {
     public static final int PAGE_NUMBER_TO_PRESENT = 5;
     @Autowired
     private IPostsService iPostsService;
+    @Autowired
+    private ICategoryService iCategoryService;
+
+    @ModelAttribute("categories")
+    public Iterable<Category> listCatagory() {
+        return iCategoryService.findAll();
+    }
+
 
     @GetMapping({PostsRequestUri.BLANK, PostsRequestUri.SLASH})
     public ModelAndView showPosts(ModelAndView modelAndView, @PageableDefault(value = PAGE_NUMBER_TO_PRESENT) Pageable pageable) {
-        Iterable<Posts> posts = iPostsService.findAll(pageable);
+        /*Iterable<Posts> posts = iPostsService.findAll();*/
+        Page<Posts> posts = iPostsService.findAll(pageable);
         modelAndView.addObject("posts", posts);
         modelAndView.setViewName(PostsViewUri.POSTS_INDEX);
         return modelAndView;
