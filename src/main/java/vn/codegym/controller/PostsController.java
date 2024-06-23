@@ -1,14 +1,10 @@
 package vn.codegym.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import vn.codegym.model.posts.Posts;
 import vn.codegym.model.posts.PostsDTO;
@@ -17,21 +13,16 @@ import vn.codegym.uri.PostsRequestUri;
 import vn.codegym.uri.PostsViewUri;
 
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 
-@RequestMapping("/posts")
+@RequestMapping(PostsRequestUri.POSTS)
 @Controller
 public class PostsController {
 
     public static final String IMAGE_FILE_INVALID_MESSAGE = "can them anh vao";
     @Autowired
     private IPostsService iPostsService;
-
-    @Value("${file-upload}")
-    private String fileUpload;
 
     @GetMapping({PostsRequestUri.BLANK, PostsRequestUri.SLASH})
     public ModelAndView index(ModelAndView modelAndView) {
@@ -51,33 +42,34 @@ public class PostsController {
 
     @PostMapping(PostsRequestUri.CREATE)
     public String createPost(@Valid @ModelAttribute PostsDTO postsDTO, BindingResult bindingResult) {
-        /*TODO: @Valid, BindingResult -> check validation of fields*/
-        checkUploadImageInvalid(postsDTO, bindingResult);
+        iPostsService.checkUploadImageInvalid(postsDTO, bindingResult);
         if (isBindingError(bindingResult)) return PostsViewUri.POSTS_CREATE;
-        String fileName = getFileName(postsDTO);
+        String fileName = iPostsService.getFileName(postsDTO);
         try {
-            saveAnCopyOfFileToStorage(postsDTO, fileName);
-            savePost(postsDTO, fileName);
+            iPostsService.saveAnCopyOfFileToStorage(postsDTO, fileName);
+            iPostsService.savePost(postsDTO, fileName);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return PostsViewUri.REDIRECT_TO_POSTS;
     }
 
-    private void saveAnCopyOfFileToStorage(PostsDTO postsDTO, String fileName) throws IOException {
-        FileCopyUtils.copy(postsDTO.getImageFile().getBytes(), new File(fileUpload + fileName));
-    }
 
     @GetMapping(PostsRequestUri.EDIT)
     public String showEditPage(Model model, @PathVariable Long id) {
         Posts posts = iPostsService.findById(id);
         model.addAttribute("posts", posts);
+        PostsDTO postsDTO = getPostsDTO(posts);
+        model.addAttribute("postsDTO", postsDTO);
+        return PostsViewUri.POSTS_EDIT;
+    }
+
+    private static PostsDTO getPostsDTO(Posts posts) {
         PostsDTO postsDTO = new PostsDTO();
         postsDTO.setTitle(posts.getTitle());
         postsDTO.setContent(posts.getContent());
         postsDTO.setShortDescription(posts.getShortDescription());
-        model.addAttribute("postsDTO", postsDTO);
-        return PostsViewUri.POSTS_EDIT;
+        return postsDTO;
     }
 
     @PostMapping(PostsRequestUri.EDIT)
@@ -87,7 +79,7 @@ public class PostsController {
          *   2. edit hinh anh thi phai xoa anh cu
          *   3. luu anh moi vao storage/images*/
 
-        checkUploadImageInvalid(postsDTO, bindingResult);
+        iPostsService.checkUploadImageInvalid(postsDTO, bindingResult);
         if (isBindingError(bindingResult)) return PostsViewUri.POSTS_EDIT;
         Posts posts = iPostsService.findById(id);
         posts.setTitle(postsDTO.getTitle());
@@ -98,41 +90,16 @@ public class PostsController {
     }
 
     @GetMapping(PostsRequestUri.DELETE)
-    public String showDeletePage(Model model, @PathVariable Long id) {
+    public String showDeletePage(@PathVariable Long id) {
         iPostsService.remove(id);
         /*TODO: remove xong trong CSDL -
            > delete ca anh co trong storage/images*/
         return PostsViewUri.REDIRECT_TO_POSTS;
     }
 
-    private static String getFileName(PostsDTO postsDTO) {
-        MultipartFile multipartFile = postsDTO.getImageFile();
-        String fileName = multipartFile.getOriginalFilename();
-        return fileName;
-    }
 
     private static boolean isBindingError(BindingResult bindingResult) {
         return bindingResult.hasErrors();
     }
-
-    private static void checkUploadImageInvalid(PostsDTO postsDTO, BindingResult bindingResult) {
-        if (postsDTO.getImageFile().isEmpty())
-            bindingResult.addError(new FieldError("postsDTO", "imageFile", IMAGE_FILE_INVALID_MESSAGE));
-    }
-
-    public void savePost(PostsDTO postsDTO, String fileName) {
-        Posts posts = getPosts(postsDTO, fileName);
-        iPostsService.save(posts);
-    }
-
-    public static Posts getPosts(PostsDTO postsDTO, String fileName) {
-        Posts posts = new Posts();
-        posts.setContent(postsDTO.getContent());
-        posts.setTitle(postsDTO.getTitle());
-        posts.setShortDescription(postsDTO.getShortDescription());
-        posts.setImageFileName(fileName);
-        return posts;
-    }
-
 
 }

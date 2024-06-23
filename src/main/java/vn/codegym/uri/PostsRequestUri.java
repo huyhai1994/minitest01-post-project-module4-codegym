@@ -1,6 +1,7 @@
 package vn.codegym.uri;
 
 public class PostsRequestUri {
+    public static final String POSTS = "/posts";
     public static final String BLANK = "";
     public static final String SLASH = "/";
     public static final String CREATE = "/create";
