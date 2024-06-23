@@ -26,7 +26,7 @@ public class PostsController {
 
     @GetMapping({PostsRequestUri.BLANK, PostsRequestUri.SLASH})
     public ModelAndView index(ModelAndView modelAndView) {
-        List<Posts> posts = iPostsService.findAll();
+        Iterable<Posts> posts = iPostsService.findAll();
         modelAndView.addObject("posts", posts);
         modelAndView.setViewName(PostsViewUri.POSTS_INDEX);
         return modelAndView;
@@ -55,7 +55,7 @@ public class PostsController {
     }
 
 
-    @GetMapping(PostsRequestUri.EDIT)
+    @GetMapping("/{id}/edit")
     public String showEditPage(Model model, @PathVariable Long id) {
         Posts posts = iPostsService.findById(id);
         model.addAttribute("posts", posts);
@@ -72,7 +72,7 @@ public class PostsController {
         return postsDTO;
     }
 
-    @PostMapping(PostsRequestUri.EDIT)
+    @PostMapping("/{id}/edit")
     public String editPost(@Valid @ModelAttribute PostsDTO postsDTO, BindingResult bindingResult, @PathVariable Long id) {
         /*TODO:
          *   1. Phai kiem tra xem hinh anh da ton tai trong CSDL chua?

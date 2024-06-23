@@ -14,7 +14,6 @@ import vn.codegym.service.IPostsService;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import static vn.codegym.controller.PostsController.IMAGE_FILE_INVALID_MESSAGE;
 
@@ -27,7 +26,7 @@ public class PostsService implements IPostsService {
     private IPostsRepository iPostsRepository;
 
     @Override
-    public List<Posts> findAll() {
+    public Iterable<Posts> findAll() {
         return iPostsRepository.findAll();
     }
 
