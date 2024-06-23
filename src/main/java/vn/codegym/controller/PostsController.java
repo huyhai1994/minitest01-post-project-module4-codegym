@@ -73,7 +73,11 @@ public class PostsController {
     public String showEditPage(Model model, @PathVariable Long id) {
         Optional<Posts> posts = iPostsService.findById(id);
         model.addAttribute("posts", posts.get());
-        PostsDTO postsDTO = getPostsDTO(posts.get());
+        PostsDTO postsDTO = new PostsDTO();
+        postsDTO.setTitle(posts.get().getTitle());
+        postsDTO.setContent(posts.get().getContent());
+        postsDTO.setShortDescription(posts.get().getShortDescription());
+        postsDTO.setCategory(posts.get().getCategory());
         model.addAttribute("postsDTO", postsDTO);
         return PostsViewUri.POSTS_EDIT;
     }
@@ -113,7 +117,7 @@ public class PostsController {
         return PostsViewUri.REDIRECT_TO_POSTS;
     }
 
-    @PostMapping("/search")
+    @GetMapping("/search")
     public ModelAndView listPosts(@RequestParam("search") Optional<String> search, @PageableDefault(value = PAGE_NUMBER_TO_PRESENT) Pageable pageable) {
         Page<Posts> posts;
         if (search.isPresent()) {

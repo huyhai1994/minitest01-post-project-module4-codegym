@@ -40,7 +40,7 @@
                     <a aria-current="page" class="nav-link active" th:href="@{/category/create}">Tao Danh Muc Moi</a>
                 </li>
             </ul>
-            <form class="d-flex justify-content-left" th:action="@{/posts/search}" method="POST">
+            <form class="d-flex justify-content-left" th:action="@{/posts/search}" method="get">
                 <input aria-label="Search" class="form-control me-2" placeholder="Tim theo tieu de bai" type="search">
 
                 <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i>
