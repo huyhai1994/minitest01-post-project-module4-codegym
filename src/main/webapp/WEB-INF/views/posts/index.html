@@ -42,7 +42,19 @@
         </tbody>
         </thead>
         </thead></table>
+    <div class="row ">
+        <div class="col d-flex justify-content-center">
+            <a class="btn btn-primary" th:if="${posts.hasPrevious()}"
+               th:href="@{/posts/(page=${posts.number - 1})}"><i class="fa-solid fa-caret-left"></i></a>
+            <span th:text="${posts.number + 1}"></span> | <span th:text="${posts.totalPages}"></span>
+            <a class="btn btn-primary" th:if="${posts.hasNext()}"
+               th:href="@{/posts/(page=${posts.number + 1})}"><i class="fa-solid fa-caret-right"></i></a>
+        </div>
+    </div>
+
 </div>
+
+
 <script crossorigin="anonymous"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
         src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
