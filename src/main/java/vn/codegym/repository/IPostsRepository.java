@@ -8,6 +8,7 @@ import vn.codegym.model.posts.Posts;
 
 @Repository
 public interface IPostsRepository extends CrudRepository<Posts, Long> {
-    /*TODO: define searching method here!!!*/
     Page<Posts> findAll(Pageable pageable);
+
+    Page<Posts> findByTitleContaining(Pageable pageable, String name);
 }

@@ -112,7 +112,19 @@ public class PostsController {
            > delete ca anh co trong storage/images*/
         return PostsViewUri.REDIRECT_TO_POSTS;
     }
-    /*TODO: Bo sung phan search*/
+
+    @PostMapping("/search")
+    public ModelAndView listPosts(@RequestParam("search") Optional<String> search, @PageableDefault(value = PAGE_NUMBER_TO_PRESENT) Pageable pageable) {
+        Page<Posts> posts;
+        if (search.isPresent()) {
+            posts = iPostsService.findAllByTitle(pageable, search.get());
+        } else {
+            posts = iPostsService.findAll(pageable);
+        }
+        ModelAndView modelAndView = new ModelAndView("/posts/index");
+        modelAndView.addObject("posts", posts);
+        return modelAndView;
+    }
 
 
     private static boolean isBindingError(BindingResult bindingResult) {

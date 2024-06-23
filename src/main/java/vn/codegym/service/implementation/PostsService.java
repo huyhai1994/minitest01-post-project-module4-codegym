@@ -95,4 +95,9 @@ public class PostsService implements IPostsService {
         if (postsDTO.getImageFile().isEmpty())
             bindingResult.addError(new FieldError("postsDTO", "imageFile", IMAGE_FILE_INVALID_MESSAGE));
     }
+
+    @Override
+    public Page<Posts> findAllByTitle(Pageable pageable, String name) {
+        return iPostsRepository.findByTitleContaining(pageable, name);
+    }
 }
