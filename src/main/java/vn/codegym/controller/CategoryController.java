@@ -9,12 +9,12 @@ import vn.codegym.uri.CategoryRequestUri;
 import vn.codegym.uri.CategoryViewUri;
 
 @Controller
-@RequestMapping(value = CategoryRequestUri.BLANK)
+@RequestMapping(value = CategoryRequestUri.CATEGORY)
 public class CategoryController {
     @Autowired
     private ICategoryService categoryService;
 
-    @RequestMapping(value = CategoryRequestUri.BLANK)
+    @RequestMapping
     public String showCategories(Model model) {
         model.addAttribute("categories", categoryService.findAll());
         return CategoryViewUri.CATEGORY_INDEX;

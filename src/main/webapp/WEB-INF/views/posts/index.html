@@ -32,8 +32,8 @@
             <td>
                 <a class="btn btn-primary btn-sm" th:href="@{/posts/{id}/edit(id=${post.id})}"><i
                         class="fa-solid fa-pen-to-square"></i></a>
-                <a class="btn btn-danger btn-sm" th:href="@{/posts/{id}/delete(id=${post.id})}"
-                   onclick="return confirm('Ban co chac chan muon xoa?')"><i
+                <a class="btn btn-danger btn-sm" onclick="return confirm('Ban co chac chan muon xoa?')"
+                   th:href="@{/posts/{id}/delete(id=${post.id})}"><i
                         class="fa-solid fa-trash"></i></a>
             </td>
         </tbody>

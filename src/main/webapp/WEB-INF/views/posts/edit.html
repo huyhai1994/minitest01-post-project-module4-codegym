@@ -9,21 +9,21 @@
         <div class="row">
             <div class="col-md-8 mx-auto rounded border p-4 m-4">
                 <h2 class="text-center mb-5">Sua Bai Dang</h2>
-                <form th:action="@{/posts/${posts.id}/edit}" method="post" enctype="multipart/form-data"
+                <form enctype="multipart/form-data" method="post" th:action="@{/posts/${posts.id}/edit}"
                       th:object="${postsDTO}">
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Id</label>
                         <div class="col-sm-8">
-                            <input readonly class="form-control-plaintext" th:field="${posts.id}">
+                            <input class="form-control-plaintext" readonly th:field="${posts.id}">
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Tieu De</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" th:field="${postsDTO.title}">
-                            <p th:if="${#fields.hasErrors('title')}" th:errorclass="text-danger"
-                               th:errors="${postsDTO.title}"></p>
+                            <input class="form-control" th:field="${postsDTO.title}" type="text">
+                            <p th:errorclass="text-danger" th:errors="${postsDTO.title}"
+                               th:if="${#fields.hasErrors('title')}"></p>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -31,38 +31,38 @@
                         <div class="col-sm-8">
                         <textarea class="form-control" th:field="${postsDTO.content}">
                         </textarea>
-                            <p th:if="${#fields.hasErrors('content')}" th:errorclass="text-danger"
-                               th:errors="${postsDTO.getContent()}"></p>
+                            <p th:errorclass="text-danger" th:errors="${postsDTO.getContent()}"
+                               th:if="${#fields.hasErrors('content')}"></p>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Mo Ta Ngan</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" th:field="${postsDTO.shortDescription}">
-                            <p th:if="${#fields.hasErrors('shortDescription')}" th:errorclass="text-danger"
-                               th:errors="${postsDTO.shortDescription}"></p>
+                            <input class="form-control" th:field="${postsDTO.shortDescription}" type="text">
+                            <p th:errorclass="text-danger" th:errors="${postsDTO.shortDescription}"
+                               th:if="${#fields.hasErrors('shortDescription')}"></p>
                         </div>
                     </div>
                     <div class="row mb-3">
 
                         <div class="offset-sm-4 col-sm-8">
-                            <img th:src="@{'/images/'+${posts.imageFileName}}" alt="" width="150">
+                            <img alt="" th:src="@{'/images/'+${posts.imageFileName}}" width="150">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Hinh Anh</label>
                         <div class="col-sm-8">
-                            <input type="file" class="form-control" th:field="${postsDTO.imageFile}">
-                            <p th:if="${#fields.hasErrors('imageFile')}" th:errorclass="text-danger"
-                               th:errors="${postsDTO.imageFile}"></p>
+                            <input class="form-control" th:field="${postsDTO.imageFile}" type="file">
+                            <p th:errorclass="text-danger" th:errors="${postsDTO.imageFile}"
+                               th:if="${#fields.hasErrors('imageFile')}"></p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="offset-sm-4 col-sm-4 d-grid">
-                            <button type="submit" class="btn btn-primary">Dang Bai</button>
+                            <button class="btn btn-primary" type="submit">Dang Bai</button>
                         </div>
                         <div class="col-sm-4 d-grid">
-                            <a href="" class="btn btn-outline-primary" th:href="@{/posts}" role="button"> Huy</a>
+                            <a class="btn btn-outline-primary" href="" role="button" th:href="@{/posts}"> Huy</a>
                         </div>
                     </div>
                 </form>
