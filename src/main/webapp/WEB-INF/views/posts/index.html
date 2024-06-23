@@ -18,18 +18,20 @@
             <th>Tieu De</th>
             <th>Noi dung</th>
             <th>Mo ta</th>
-            <th>Hinh Anh</th>
             <th>Danh Muc</th>
+            <th>Hinh Anh</th>
             <th>Hanh Dong</th>
         </tr>
         <tbody>
-        <tr th:each="post : ${posts}">
-            <td th:text="${post.id}"></td>
+        <tr th:each="post,postStatus : ${posts}">
+            <td th:text="${postStatus.count}"></td>
             <td th:text="${post.title}"></td>
             <td th:text="${post.content}"></td>
             <td th:text="${post.shortDescription}"></td>
+            <td th:if="${post.category != null}" th:text="${post.category.getName()}"></td>
+            <td th:if="${post.category == null}"><p>Chua dat</p></td>
             <td><img th:src="@{'/images/'+${post.imageFileName}}" width="100"></td>
-            <td th:text="${post.getCategory()}"></td>
+
             <td>
                 <a class="btn btn-primary btn-sm" th:href="@{/posts/{id}/edit(id=${post.id})}"><i
                         class="fa-solid fa-pen-to-square"></i></a>

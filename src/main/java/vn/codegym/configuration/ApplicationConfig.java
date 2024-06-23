@@ -139,6 +139,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         multipartResolver.setMaxUploadSize(MAX_UPLOAD_SIZE);
         return multipartResolver;
     }
+
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new CategoryFormatter(applicationContext.getBean(CategoryService.class)));

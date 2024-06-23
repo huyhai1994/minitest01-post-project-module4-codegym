@@ -18,6 +18,7 @@ import vn.codegym.uri.PostsRequestUri;
 import vn.codegym.uri.PostsViewUri;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 
 @RequestMapping(PostsRequestUri.POSTS)
@@ -47,7 +48,7 @@ public class PostsController {
     }
 
     @GetMapping(PostsRequestUri.CREATE)
-    public ModelAndView showCreateForm(ModelAndView modelAndView) {
+    public ModelAndView showCreateForm(ModelAndView modelAndView, Model model) {
         PostsDTO postsDTO = new PostsDTO();
         modelAndView.addObject("postsDTO", postsDTO);
         modelAndView.setViewName(PostsViewUri.POSTS_CREATE);
@@ -71,9 +72,9 @@ public class PostsController {
 
     @GetMapping("/{id}/edit")
     public String showEditPage(Model model, @PathVariable Long id) {
-        Posts posts = iPostsService.findById(id).get();
-        model.addAttribute("posts", posts);
-        PostsDTO postsDTO = getPostsDTO(posts);
+        Optional<Posts> posts = iPostsService.findById(id);
+        model.addAttribute("posts", posts.get());
+        PostsDTO postsDTO = getPostsDTO(posts.get());
         model.addAttribute("postsDTO", postsDTO);
         return PostsViewUri.POSTS_EDIT;
     }
@@ -110,6 +111,7 @@ public class PostsController {
            > delete ca anh co trong storage/images*/
         return PostsViewUri.REDIRECT_TO_POSTS;
     }
+    /*TODO: Bo sung phan search*/
 
 
     private static boolean isBindingError(BindingResult bindingResult) {

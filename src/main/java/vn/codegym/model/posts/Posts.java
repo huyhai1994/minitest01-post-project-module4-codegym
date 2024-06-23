@@ -69,13 +69,11 @@ public class Posts {
         this.imageFileName = imageFileName;
     }
 
-    public String getCategory() {
-        return category.getName();
+    public Category getCategory() {
+        return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
     }
-
-
 }

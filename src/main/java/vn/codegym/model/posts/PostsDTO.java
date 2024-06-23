@@ -1,6 +1,7 @@
 package vn.codegym.model.posts;
 
 import org.springframework.web.multipart.MultipartFile;
+import vn.codegym.model.category.Category;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -18,28 +19,38 @@ public class PostsDTO {
 
     private MultipartFile imageFile;
 
-    public @NotEmpty(message = "Khong duoc de trong ten bai viet") String getTitle() {
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    private Category category;
+
+    public String getTitle() {
         return title;
     }
 
-    public void setTitle(@NotEmpty(message = "Khong duoc de trong ten bai viet") String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public @NotEmpty(message = "Khong duoc de trong noi dung") String getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(@NotEmpty(message = "Khong duoc de trong noi dung") String content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
-    public @Size(min = 10, message = "Mo ta nen it nhat 10 ki tu") @Size(max = 2000, message = "Mo ta khong duoc qua 2000 ki tu") String getShortDescription() {
+    public String getShortDescription() {
         return shortDescription;
     }
 
-    public void setShortDescription(@NotEmpty(message = "Khong duoc de trong mo ta ngan") @Size(min = 10, message = "Mo ta nen it nhat 10 ki tu") @Size(max = 2000, message = "Mo ta khong duoc qua 2000 ki tu") String shortDescription) {
-        this.shortDescription = shortDescription;
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = this.shortDescription;
     }
 
     public MultipartFile getImageFile() {
