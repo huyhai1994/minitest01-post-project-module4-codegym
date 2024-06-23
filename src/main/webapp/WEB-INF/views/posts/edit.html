@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-8 mx-auto rounded border p-4 m-4">
             <h2 class="text-center mb-5">Sua Bai Dang</h2>
-            <form enctype="multipart/form-data" method="post" th:action="@{/posts/${id}/edit(id=${posts.id})}"
+            <form enctype="multipart/form-data" method="post" th:action="@{/posts/{id}/edit(id=${posts.id})}"
                   th:object="${postsDTO}">
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Id</label>
