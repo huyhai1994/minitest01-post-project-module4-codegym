@@ -21,6 +21,7 @@ public class Posts {
 
     private String imageFileName;
 
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -66,6 +67,14 @@ public class Posts {
 
     public void setImageFileName(String imageFileName) {
         this.imageFileName = imageFileName;
+    }
+
+    public String getCategory() {
+        return category.getName();
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
 
