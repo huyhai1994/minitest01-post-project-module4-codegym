@@ -10,6 +10,7 @@
         <h1 class="text-center my-4">Danh Sach Hang Muc</h1>
     </div>
     <table class="table table-responsive table-bordered table-hover">
+        <!--TODO: Adjusting the width of table (too big now)-->
         <thead>
         <tr class="table-success table-active text-uppercase text-white">
             <th>ID</th>
@@ -21,7 +22,7 @@
             <td th:text="${category.id}"></td>
             <td th:text="${category.name}"></td>
             <td>
-                <a class="btn btn-primary btn-sm" th:href="@{/category/{id}/edit(id=${category.id})}"><i
+                <a class="btn btn-primary btn-sm" th:href="@{/category/{id}/update(id=${category.id})}"><i
                         class="fa-solid fa-pen-to-square"></i></a>
                 <a class="btn btn-danger btn-sm" onclick="return confirm('Ban co chac chan muon xoa?')"
                    th:href="@{/category/{id}/delete(id=${category.id})}"><i
