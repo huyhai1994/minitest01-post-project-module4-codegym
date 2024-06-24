@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
@@ -29,8 +26,11 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
+import vn.codegym.aspect.PostsAspect;
 import vn.codegym.formatter.CategoryFormatter;
+import vn.codegym.service.IPostsService;
 import vn.codegym.service.implementation.CategoryService;
+import vn.codegym.service.implementation.PostsService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -43,9 +43,11 @@ import java.util.Properties;
 @EnableJpaRepositories("vn.codegym.repository")
 @EnableSpringDataWebSupport
 @EnableTransactionManagement
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class ApplicationConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
     public static final String JDBC_MYSQL_LOCALHOST_URL_CONNECTION = "jdbc:mysql://localhost:3306/module4_minitest1_post";
     public static final int MAX_UPLOAD_SIZE = 52428800;
+    public static final String VIEWS_FOLDER = "/WEB-INF/views";
     @Autowired
     private Environment env;
     private ApplicationContext applicationContext;
@@ -63,7 +65,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     public ITemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(applicationContext);
-        templateResolver.setPrefix("/WEB-INF/views");
+        templateResolver.setPrefix(VIEWS_FOLDER);
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setCharacterEncoding("UTF-8");
@@ -110,7 +112,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         dataSource.setUrl(JDBC_MYSQL_LOCALHOST_URL_CONNECTION);
         dataSource.setUsername("codegym");
         dataSource.setPassword("codegym");
-        return (javax.sql.DataSource) dataSource;
+        return dataSource;
     }
 
     @Bean
@@ -125,6 +127,8 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         /*TODO: Automatically update database tables when the models changed*/
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        properties.setProperty("hibernate.show_sql", "true");
+        properties.setProperty("hibernate.type", "trace");
         return properties;
     }
 
@@ -143,5 +147,15 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new CategoryFormatter(applicationContext.getBean(CategoryService.class)));
+    }
+
+    @Bean
+    public IPostsService iPostsService() {
+        return new PostsService();
+    }
+
+    @Bean
+    public PostsAspect postsAspect() {
+        return new PostsAspect();
     }
 }

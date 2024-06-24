@@ -29,6 +29,7 @@ public class PostsController {
     public static final int PAGE_NUMBER_TO_PRESENT = 5;
     @Autowired
     private IPostsService iPostsService;
+
     @Autowired
     private ICategoryService iCategoryService;
 
@@ -69,7 +70,7 @@ public class PostsController {
     }
 
 
-    @GetMapping("/{id}/edit")
+    @GetMapping(PostsRequestUri.EDIT)
     public String showEditPage(Model model, @PathVariable Long id) {
         Optional<Posts> posts = iPostsService.findById(id);
         model.addAttribute("posts", posts.get());
@@ -92,7 +93,7 @@ public class PostsController {
         return postsDTO;
     }
 
-    @PostMapping("/{id}/edit")
+    @PostMapping(PostsRequestUri.EDIT)
     public String editPost(@Valid @ModelAttribute PostsDTO postsDTO, BindingResult bindingResult, @PathVariable Long id) {
         /*TODO:
          *   1. Phai kiem tra xem hinh anh da ton tai trong CSDL chua?
