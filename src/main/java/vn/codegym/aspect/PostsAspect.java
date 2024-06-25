@@ -17,7 +17,6 @@ public class PostsAspect {
         System.out.println("afterExecuteController");
     }
 
-
     @Pointcut(value = "within(vn.codegym.controller.*)")
     public void executeController() {
 

@@ -57,6 +57,7 @@ dependencies {
     /*-TODO:  Để ứng dụng có thể khởi động lên được, cần thêm thư viện phụ thuộc spring-aspects vào file build.gradle.  */
     implementation group: 'org.springframework', name: 'spring-aspects', version: '5.3.20'
 
+
 }
 
 test {

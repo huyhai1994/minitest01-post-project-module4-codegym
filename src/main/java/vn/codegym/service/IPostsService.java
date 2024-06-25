@@ -18,7 +18,9 @@ public interface IPostsService extends IGenerateService<Posts> {
     String getFileName(PostsDTO postsDTO);
 
     void checkUploadImageInvalid(PostsDTO postsDTO, BindingResult bindingResult);
+
     Page<Posts> findAllByTitle(Pageable pageable, String name);
 
+    Page<Posts> getPostsByTitleContaining(Pageable pageable, String title);
 
 }

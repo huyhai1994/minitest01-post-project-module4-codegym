@@ -122,11 +122,13 @@ public class PostsController {
     public ModelAndView listPosts(@RequestParam("search") Optional<String> search, @PageableDefault(value = PAGE_NUMBER_TO_PRESENT) Pageable pageable) {
         Page<Posts> posts;
         if (search.isPresent()) {
-            posts = iPostsService.findAllByTitle(pageable, search.get());
+            System.out.println(search.get());
+            posts = iPostsService.getPostsByTitleContaining(pageable, search.get());
         } else {
             posts = iPostsService.findAll(pageable);
         }
         ModelAndView modelAndView = new ModelAndView("/posts/index");
+        modelAndView.addObject("search", search.orElse(""));
         modelAndView.addObject("posts", posts);
         return modelAndView;
     }

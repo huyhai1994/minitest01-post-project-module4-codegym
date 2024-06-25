@@ -100,4 +100,9 @@ public class PostsService implements IPostsService {
     public Page<Posts> findAllByTitle(Pageable pageable, String name) {
         return iPostsRepository.findByTitleContaining(pageable, name);
     }
+
+    @Override
+    public Page<Posts> getPostsByTitleContaining(Pageable pageable, String title) {
+        return iPostsRepository.getPostByTitleContaining(pageable,title);
+    }
 }
