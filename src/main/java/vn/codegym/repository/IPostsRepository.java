@@ -16,6 +16,6 @@ public interface IPostsRepository extends CrudRepository<Posts, Long> {
 
     Page<Posts> findByTitleContaining(Pageable pageable, String name);
 
-    @Query(value = "select * from posts where title =?1", nativeQuery = true)
+    @Query(value = "select * from posts where title like %?1%", nativeQuery = true)
     Page<Posts> getPostByTitleContaining(Pageable pageable, String title);
 }

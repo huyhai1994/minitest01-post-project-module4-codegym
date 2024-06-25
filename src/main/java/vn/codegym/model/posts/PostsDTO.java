@@ -13,6 +13,7 @@ public class PostsDTO {
 
     @NotBlank(message = "Khong duoc de trong noi dung")
     private String content;
+
     @NotNull(message = "Khong duoc de trong")
     private String shortDescription;
 
