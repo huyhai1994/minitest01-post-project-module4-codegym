@@ -23,7 +23,7 @@
                     <div class="col-sm-8">
                         <textarea class="form-control" th:field="${postsDTO.content}">
                         </textarea>
-                        <p th:errorclass="text-danger" th:errors="${postsDTO.getContent()}"
+                        <p th:errorclass="text-danger" th:errors="${postsDTO.content}"
                            th:if="${#fields.hasErrors('content')}"></p>
                     </div>
                 </div>
