@@ -26,7 +26,7 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
-import vn.codegym.aspect.PostsAspect;
+import vn.codegym.controller.aspect.RestPostsControllerAspect;
 import vn.codegym.formatter.CategoryFormatter;
 import vn.codegym.service.IPostsService;
 import vn.codegym.service.implementation.CategoryService;
@@ -155,7 +155,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     }
 
     @Bean
-    public PostsAspect postsAspect() {
-        return new PostsAspect();
+    public RestPostsControllerAspect postsAspect() {
+        return new RestPostsControllerAspect();
     }
 }
