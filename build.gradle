@@ -57,6 +57,9 @@ dependencies {
     /*-TODO:  Để ứng dụng có thể khởi động lên được, cần thêm thư viện phụ thuộc spring-aspects vào file build.gradle.  */
     implementation group: 'org.springframework', name: 'spring-aspects', version: '5.3.20'
 
+/*TODO: Thu vien chuyen doi file jason*/
+    implementation group: 'org.springframework', name: 'spring-tx', version: '5.3.23'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.2'
 
 }
 

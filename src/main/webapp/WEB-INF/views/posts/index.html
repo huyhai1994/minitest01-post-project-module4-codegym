@@ -49,6 +49,8 @@
             <span th:text="${posts.number + 1}"></span> | <span th:text="${posts.totalPages}"></span>
             <a class="btn btn-primary" th:if="${posts.hasNext()}"
                th:href="@{/posts/(page=${posts.number + 1})}"><i class="fa-solid fa-caret-right"></i></a>
+            <!--TODO: Duong link chuyen trang cua
+                        search dang sai o day-->
         </div>
     </div>
 

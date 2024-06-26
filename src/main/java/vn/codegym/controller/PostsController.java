@@ -1,6 +1,5 @@
 package vn.codegym.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -27,11 +26,15 @@ public class PostsController {
 
     public static final String IMAGE_FILE_INVALID_MESSAGE = "can them anh vao";
     public static final int PAGE_NUMBER_TO_PRESENT = 5;
-    @Autowired
-    private IPostsService iPostsService;
 
-    @Autowired
-    private ICategoryService iCategoryService;
+    private final IPostsService iPostsService;
+
+    private final ICategoryService iCategoryService;
+
+    public PostsController(IPostsService iPostsService, ICategoryService iCategoryService) {
+        this.iPostsService = iPostsService;
+        this.iCategoryService = iCategoryService;
+    }
 
     @ModelAttribute("categories")
     public Iterable<Category> listCategory() {

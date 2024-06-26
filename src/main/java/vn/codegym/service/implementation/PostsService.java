@@ -103,6 +103,6 @@ public class PostsService implements IPostsService {
 
     @Override
     public Page<Posts> getPostsByTitleContaining(Pageable pageable, String title) {
-        return iPostsRepository.getPostByTitleContaining(pageable,title);
+        return iPostsRepository.getPostByTitleContaining(pageable, title);
     }
 }
