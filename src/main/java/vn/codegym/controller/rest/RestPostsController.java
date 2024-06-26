@@ -47,13 +47,12 @@ public class RestPostsController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Posts> deletePost(@PathVariable Long id) {
         Optional<Posts> postsOptional = iPostsService.findById(id);
         if (!postsOptional.isPresent())
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         iPostsService.remove(id);
         return new ResponseEntity<>(postsOptional.get(), HttpStatus.OK);
-
     }
 }
