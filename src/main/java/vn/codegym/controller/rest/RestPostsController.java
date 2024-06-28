@@ -3,6 +3,7 @@ package vn.codegym.controller.rest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import vn.codegym.model.DTO.ICountPosts;
 import vn.codegym.model.posts.Posts;
 import vn.codegym.service.IPostsService;
 
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/posts")
+@CrossOrigin("*")
 public class RestPostsController {
     private final IPostsService iPostsService;
 
@@ -51,5 +53,11 @@ public class RestPostsController {
         if (!postsOptional.isPresent()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         iPostsService.remove(id);
         return new ResponseEntity<>(postsOptional.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<Iterable<ICountPosts>> getNumber() {
+        Iterable<ICountPosts> posts = iPostsService.getCountPosts();
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 }

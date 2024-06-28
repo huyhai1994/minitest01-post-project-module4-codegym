@@ -8,6 +8,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.multipart.MultipartFile;
+import vn.codegym.model.DTO.ICountPosts;
 import vn.codegym.model.posts.Posts;
 import vn.codegym.model.posts.PostsDTO;
 import vn.codegym.repository.IPostsRepository;
@@ -107,5 +108,10 @@ public class PostsService implements IPostsService {
     @Override
     public Page<Posts> getPostsByTitleContaining(Pageable pageable, String title) {
         return iPostsRepository.getPostByTitleContaining(pageable, title);
+    }
+
+    @Override
+    public Iterable<ICountPosts> getCountPosts() {
+        return null;
     }
 }

@@ -3,6 +3,7 @@ package vn.codegym.service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.BindingResult;
+import vn.codegym.model.DTO.ICountPosts;
 import vn.codegym.model.posts.Posts;
 import vn.codegym.model.posts.PostsDTO;
 
@@ -23,4 +24,5 @@ public interface IPostsService extends IGenerateService<Posts> {
 
     Page<Posts> getPostsByTitleContaining(Pageable pageable, String title);
 
+    Iterable<ICountPosts> getCountPosts();
 }

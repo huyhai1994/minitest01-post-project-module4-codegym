@@ -3,7 +3,9 @@ package vn.codegym.service.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
+import vn.codegym.model.DTO.ICountPosts;
 import vn.codegym.model.category.Category;
 import vn.codegym.repository.ICategoryRepository;
 import vn.codegym.service.ICategoryService;
@@ -45,4 +47,12 @@ public class CategoryService implements ICategoryService {
     public void deleteCategoryById(Long id) {
         iCategoryRepository.deleteCategoryById(id);
     }
+
+    @Override
+    public Iterable<ICountPosts> getCountPosts() {
+        return iCategoryRepository.getCountPosts();
+
+    }
+
+
 }
