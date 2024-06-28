@@ -1,0 +1,29 @@
+body {
+  background-color: hsl(0, 0%, 50%);
+  background-image: url("https://img.freepik.com/free-vector/fun-wavy-background-image_557339-670.jpg?w=1380&t=st=1719616277~exp=1719616877~hmac=156da6d9a86ff2c8fdc0fa49a7db88841a41047df0f7f1dbce7af526309f8f66");
+  background-repeat: no-repeat; 
+  background-size: cover    ;
+  font-family: 'Times New Roman', Times, serif;
+}
+/* TODO: Css for table with fixed-head */
+.tableFixHead {
+  overflow: auto;
+  height: 800px;
+}
+.tableFixHead thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.tableFixHead thead tr:nth-child(2) th {
+  top: 34px; /* change the number according to your need  */
+}
+
+.tableFixHead thead tr:nth-child(3) th {
+  top: 68px; /* change the number according to your need  */
+}
+
+.tableFixHead thead{
+    font-size: 25px;
+}
