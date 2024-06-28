@@ -28,9 +28,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import vn.codegym.controller.aspect.RestPostsControllerAspect;
 import vn.codegym.formatter.CategoryFormatter;
-import vn.codegym.service.IPostsService;
 import vn.codegym.service.implementation.CategoryService;
-import vn.codegym.service.implementation.PostsService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -147,11 +145,6 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new CategoryFormatter(applicationContext.getBean(CategoryService.class)));
-    }
-
-    @Bean
-    public IPostsService iPostsService() {
-        return new PostsService();
     }
 
     @Bean

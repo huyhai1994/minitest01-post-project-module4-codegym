@@ -1,6 +1,5 @@
 package vn.codegym.service.implementation;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,8 +24,12 @@ public class PostsService implements IPostsService {
     @Value("${file-upload}")
     private String fileUpload;
 
-    @Autowired
-    private IPostsRepository iPostsRepository;
+
+    private final IPostsRepository iPostsRepository;
+
+    public PostsService(IPostsRepository iPostsRepository) {
+        this.iPostsRepository = iPostsRepository;
+    }
 
     @Override
     public Iterable<Posts> findAll() {
