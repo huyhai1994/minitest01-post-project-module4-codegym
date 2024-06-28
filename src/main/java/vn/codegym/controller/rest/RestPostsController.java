@@ -56,7 +56,7 @@ public class RestPostsController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity<Iterable<ICountPosts>> getNumber() {
+    public ResponseEntity<Iterable<ICountPosts>> getCountPostsByCategories() {
         Iterable<ICountPosts> posts = iPostsService.getCountPosts();
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }

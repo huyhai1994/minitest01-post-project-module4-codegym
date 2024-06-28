@@ -21,7 +21,6 @@ public class Posts {
 
     private String imageFileName;
 
-
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

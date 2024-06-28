@@ -14,6 +14,6 @@ public interface ICategoryRepository extends JpaRepository<Category, Long> {
     @Query(nativeQuery = true, value = "CALL delete_category_by_id(:id)")
     void deleteCategoryById(@Param("id") Long id);
 
-    @Query(nativeQuery = true, value = "CALL get_posts_number_for_each_category()")
+    @Query(nativeQuery = true, value = "CALL get_post_number_for_each_category()")
     Iterable<ICountPosts> getCountPosts();
 }

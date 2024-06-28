@@ -11,7 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
 import vn.codegym.model.DTO.ICountPosts;
 import vn.codegym.model.posts.Posts;
 import vn.codegym.model.posts.PostsDTO;
+import vn.codegym.repository.ICategoryRepository;
 import vn.codegym.repository.IPostsRepository;
+import vn.codegym.service.ICategoryService;
 import vn.codegym.service.IPostsService;
 
 import java.io.File;
@@ -27,9 +29,11 @@ public class PostsService implements IPostsService {
 
 
     private final IPostsRepository iPostsRepository;
+    private final ICategoryRepository iCategoryRepository;
 
-    public PostsService(IPostsRepository iPostsRepository) {
+    public PostsService(IPostsRepository iPostsRepository, ICategoryRepository iCategoryRepository) {
         this.iPostsRepository = iPostsRepository;
+        this.iCategoryRepository = iCategoryRepository;
     }
 
     @Override
@@ -112,6 +116,6 @@ public class PostsService implements IPostsService {
 
     @Override
     public Iterable<ICountPosts> getCountPosts() {
-        return null;
+        return iCategoryRepository.getCountPosts();
     }
 }
