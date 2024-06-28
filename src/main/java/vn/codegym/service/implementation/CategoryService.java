@@ -40,4 +40,9 @@ public class CategoryService implements ICategoryService {
     public void remove(Long id) {
         iCategoryRepository.deleteById(id);
     }
+
+    @Override
+    public void deleteCategoryById(Long id) {
+        iCategoryRepository.deleteCategoryById(id);
+    }
 }

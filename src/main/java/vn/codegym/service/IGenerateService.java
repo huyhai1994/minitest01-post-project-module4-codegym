@@ -7,7 +7,8 @@ import java.util.Optional;
 
 public interface IGenerateService<T> {
     Iterable<T> findAll();
-    Page <T> findAll(Pageable pageable);
+
+    Page<T> findAll(Pageable pageable);
 
     void save(T t);
 
