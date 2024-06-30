@@ -5,25 +5,26 @@ function showAllPosts() {
     success: (data) => {
       let content = '';
       let localHost = 'http://127.0.0.1:5500/';
-      let imageAbsolutePath =
-        'Module4CodeGym/post-minitest-springmvc/storage/images/';
+      let imageAbsolutePath = 'storage/images/';
+      //TODO: Check the absolute path again ???
 
       const dummyObjectWhenCategoryNull = { name: 'khong co' };
       for (let index = 0; index < data.length; index++) {
         if (data[index].category === null)
           data[index].category = dummyObjectWhenCategoryNull;
-        console.log(data[index].imageFileName);
-        content += `  <tr>
-                <td>${index + 1}</td>
-                <td>${data[index].title}</td>
-                <td>${data[index].content}</td>
-                <td>${data[index].shortDescription}</td>
-                <td>${data[index].category.name}</td>
-                <td><img src=${localHost}${imageAbsolutePath}${
-          data[index].imageFileName
-        } width="100px" alt=""></td>
-            </tr>`;
-        console.log(data[index].category);
+
+        content += `      <div class="col col-md-12 col-sm-12 d-flex align-items-center justify-content-center" id="posts">
+                <div class="card">
+                <img src="${localHost}${imageAbsolutePath}${data[index].imageFileName}" class="card-img-top mx-auto" alt="..." id="post-image">
+                    <div class="card-body">
+                        <h5 class="card-title">${data[index].title}</h5>
+                        <p class="card-text">${data[index].content}</p>
+                        <p class="card-text">${data[index].shortDescription}</p>
+                        <p class="card-text">${data[index].category.name}</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div> `;
       }
       document.getElementById('posts').innerHTML = content;
     },
