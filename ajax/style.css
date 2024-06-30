@@ -1,14 +1,20 @@
 body {
   font-family: 'Times New Roman', Times, serif;
 }
+.card-text {
+  font-family: Verdana, Geneva, Tahoma, sans-serif, Times, serif;
+  font-size: larger;
+}
 
 #post-image {
-  width: 100%;
-  height: 100%;
+  width: auto !important;
+  height: auto !important;
+  /*Scale down will take the necessary specified space that is 100px x 100px without stretching the image*/
+  object-fit: scale-down;
 }
 
 .card {
-  width: 25rem;
+  width: 30rem;
 }
 body {
   background-color: hsl(0, 0%, 70%);
@@ -22,5 +28,7 @@ body {
 }
 .card:hover {
   background-color: rgba(251, 250, 251, 0.58);
-  box-shadow: 2px 6px 100px rgb(231, 222, 230);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 40rem;
 }
+/* TODO: Add eye when hover the card */

@@ -15,9 +15,9 @@ function showAllPosts() {
 
         content += `      <div class="col col-md-12 col-sm-12 d-flex align-items-center justify-content-center" id="posts">
                 <div class="card">
-                <img src="${localHost}${imageAbsolutePath}${data[index].imageFileName}" class="card-img-top mx-auto" alt="..." id="post-image">
+                <img src="${localHost}${imageAbsolutePath}${data[index].imageFileName}" class="card-img-top mx-auto img-fluid" alt="..." id="post-image">
                     <div class="card-body">
-                        <h5 class="card-title">${data[index].title}</h5>
+                        <h5 class="card-title">${data[index].title}</h5>  
                         <p class="card-text">${data[index].content}</p>
                         <p class="card-text">${data[index].shortDescription}</p>
                         <p class="card-text">${data[index].category.name}</p>
@@ -31,3 +31,5 @@ function showAllPosts() {
   });
 }
 showAllPosts();
+
+
