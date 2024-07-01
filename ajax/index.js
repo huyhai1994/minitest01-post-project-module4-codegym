@@ -13,7 +13,9 @@ function showAllPosts() {
         if (data[index].category === null)
           data[index].category = dummyObjectWhenCategoryNull;
 
-        content += `      <div class="col col-md-12 col-sm-12 d-flex align-items-center justify-content-center" id="posts">
+        content += `      
+        
+        <div class="col col-md-12 col-sm-12 d-flex align-items-center justify-content-center" id="posts">
                 <div class="card">
                 <img src="${localHost}${imageAbsolutePath}${data[index].imageFileName}" class="card-img-top mx-auto img-fluid" alt="..." id="post-image">
                     <div class="card-body">
@@ -23,6 +25,9 @@ function showAllPosts() {
                         <p class="card-text">${data[index].category.name}</p>
                            <p>
                                 <a class="btn btn-primary btn-lg btn-block  w-100" href="#"><i class="fa-solid fa-pen-to-square"></i></a>
+                            </p>
+                                <p>
+                                <a class="btn btn-danger btn-lg btn-block  w-100" onclick="return confirm('Ban co chac chan muon xoa?')"href="#"><i class="fa-solid fa-trash"></i></a>
                             </p>
                     </div>
                 </div>
@@ -34,3 +39,4 @@ function showAllPosts() {
 }
 
 showAllPosts();
+

@@ -12,20 +12,52 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-5">
+        <div class="container">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link active text-danger" th:href="@{/posts/}"><i
+                                class="fa-solid fa-house"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link active" href="#">Danh Sach Hang Muc</a>
+                    </li>
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link active" href="#">Tao Danh Muc
+                            Moi</a>
+                    </li>
+                </ul>
+                <form class="d-flex justify-content-left" action="#" method="get">
+                    <input aria-label="Search" class="form-control me-2" placeholder="Tim theo tieu de bai" type="text"
+                        name="search">
+                    <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
 
     <div class="wave"></div>
     <div class="wave"></div>
     <div class="wave"></div>
 
     <!-- TODO: Add modal for editing posts -->
-    <div class="container-fluid">
+    <div class="container-fluid my-5">
         <div class="row d-flex align-items-center justify-content-center">
-            <div class="col col-md-5 box align-items-center justify-content-center d-flex">
+            <div class="col col-md-5 col-sm-12 box align-items-center justify-content-center d-flex">
                 <div class="box">
                     <img id="user-image"
                         src="https://cdn.24h.com.vn/upload/2-2023/images/2023-06-06/kim5_1-1686027959-673-width740height480.jpg">
                     <span style="">
-                        <h2 id="create-post" class="text-white"> Bạn đang nghĩ gì?</h1>
+                        <h2 id="create-post" class="text-white"> Bạn đang nghĩ gì ?</h1>
                     </span>
                 </div>
             </div>
@@ -33,8 +65,6 @@
         <div class="row " id="posts">
             <div class="col col-md-12 col-sm-12 d-flex align-items-center justify-content-center">
                 <div class="card">
-                    <a class="btn btn-danger btn-sm" onclick="return confirm('Ban co chac chan muon xoa?')"
-                        th:href="@{/posts/{id}/delete(id=${post.id})}"><i class="fa-solid fa-trash"></i></a>
                     <img src="https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg"
                         class="card-img-top" alt="...">
                     <div class="card-body">
@@ -49,9 +79,17 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <script type="text/javascript" src="index.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+        <script crossorigin="anonymous"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script crossorigin="anonymous"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQFi"
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+        <footer class="fixed-bottom" th:fragment="footer">
+            &copy; 2023 CodeGym
+        </footer>
 </body>
 
 </html>
