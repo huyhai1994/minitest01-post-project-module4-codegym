@@ -21,7 +21,9 @@ function showAllPosts() {
                         <p class="card-text">${data[index].content}</p>
                         <p class="card-text">${data[index].shortDescription}</p>
                         <p class="card-text">${data[index].category.name}</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                           <p>
+                                <a class="btn btn-primary btn-lg btn-block  w-100" href="#"><i class="fa-solid fa-pen-to-square"></i></a>
+                            </p>
                     </div>
                 </div>
             </div> `;
@@ -30,6 +32,5 @@ function showAllPosts() {
     },
   });
 }
+
 showAllPosts();
-
-

@@ -13,22 +13,38 @@
 
 <body>
 
-    <!-- TODO: Add modal for editing posts -->
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
 
+    <!-- TODO: Add modal for editing posts -->
     <div class="container-fluid">
+        <div class="row d-flex align-items-center justify-content-center">
+            <div class="col col-md-5 box align-items-center justify-content-center d-flex">
+                <div class="box">
+                    <img id="user-image"
+                        src="https://cdn.24h.com.vn/upload/2-2023/images/2023-06-06/kim5_1-1686027959-673-width740height480.jpg">
+                    <span style="">
+                        <h2 id="create-post" class="text-white"> Bạn đang nghĩ gì?</h1>
+                    </span>
+                </div>
+            </div>
+        </div>
         <div class="row " id="posts">
             <div class="col col-md-12 col-sm-12 d-flex align-items-center justify-content-center">
                 <div class="card">
+                    <a class="btn btn-danger btn-sm" onclick="return confirm('Ban co chac chan muon xoa?')"
+                        th:href="@{/posts/{id}/delete(id=${post.id})}"><i class="fa-solid fa-trash"></i></a>
                     <img src="https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg"
                         class="card-img-top" alt="...">
                     <div class="card-body">
-                        <div class="play"><img
-                                src="http://cdn1.iconfinder.com/data/icons/flavour/button_play_blue.png" /> </div>
                         <h1 class="card-title">Tieu de</h5>
                             <p class="card-text">Noi Dung</p>
                             <p class="card-text">Mo ta ngan</p>
                             <p class="card-text">Hang Muc</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <p>
+                                <a class="btn btn-primary btn-sm" href="#"><i class="fa-solid fa-pen-to-square"></i></a>
+                            </p>
                     </div>
                 </div>
             </div>

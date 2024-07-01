@@ -23,6 +23,7 @@ public class RestPostsController {
     @GetMapping
     public ResponseEntity<Iterable<Posts>> findAllPosts() {
         List<Posts> posts = (List<Posts>) iPostsService.findAll();
+        /*TODO: su dung order by JPA o reposipotory - sap xep xuat hien tu duoi len*/
         if (posts.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
@@ -45,6 +46,12 @@ public class RestPostsController {
         posts.setId(postOptional.get().getId());
         iPostsService.save(posts);
         return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Posts> createPost(@RequestBody Posts posts) {
+        iPostsService.save(posts);
+        return new ResponseEntity<>(posts, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
